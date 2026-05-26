@@ -27,7 +27,7 @@ const rooms = [
 
 export default function RoomSections() {
   return (
-    <section className="bg-white py-10">
+    <section className="bg-white py-2">
       <div className="mx-auto grid w-[92%] gap-3 md:grid-cols-2 lg:grid-cols-12 lg:grid-rows-[210px_210px]">
         {rooms.map((room) => (
           <article

@@ -57,7 +57,7 @@ const products = [
 
 export default function ProductShowcase() {
   return (
-    <section className="bg-white py-14">
+    <section className="bg-white py-10">
       <div className="mx-auto w-[92%]">
         <div className="mb-8 flex items-center justify-center gap-2 text-[28px] font-semibold">
           <span className="text-[#aaa]">You are in</span>

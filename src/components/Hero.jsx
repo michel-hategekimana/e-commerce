@@ -22,7 +22,7 @@ const slides = [
   },
 ];
 
-export default function Hero({ isMenuOpen = false }) {
+export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
 
   const goToSlide = (direction) => {
@@ -44,12 +44,7 @@ export default function Hero({ isMenuOpen = false }) {
   }, []);
 
   return (
-    <section className="relative bg-white- pb-8 pt-5 ">
-      <div
-        className={`pointer-events-none absolute inset-0 z-[45] bg-black/35 transition-opacity duration-200 ${
-          isMenuOpen ? "opacity-100" : "opacity-0"
-        }`}
-      />
+    <section className="relative bg-white py-2 ">
       <aside className="fixed left-0 top-[223px] z-40 hidden w-10 overflow-hidden rounded-r-xl mx-0.5
        border border-l-5  border-l-yellow-500 bg-white text-[#8c8c8c] lg:block">
         <div className="flex h-[130px] items-center justify-center border-b border-[#e5e5e5]">

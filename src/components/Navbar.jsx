@@ -87,7 +87,7 @@ export default function Navbar({ onMenuOpenChange }) {
 
       
       <div className="flex items-center justify-between">
-        <h1 className="text-[40px] font-medium leading-none tracking-normal text-black">
+        <h1 className="text-[30px] font-medium leading-none tracking-normal text-black">
           miniture
         </h1>
 
@@ -104,12 +104,12 @@ export default function Navbar({ onMenuOpenChange }) {
               >
                 <button
                   type="button"
-                  className={`flex items-center gap-2 text-[20px] font-semibold text-black transition ${
+                  className={`flex items-center gap-1 text-[16px] font-semibold text-black transition ${
                     isSimpleLink ? "hover:text-[#ffa62b]" : "hover:text-black"
                   }`}
                 >
                   {item.title}
-                  {hasDropdown && <ChevronDown size={18} strokeWidth={2.4} />}
+                  {hasDropdown && <ChevronDown size={16} strokeWidth={2.4} />}
                 </button>
 
                 {item.dropdown?.length > 0 && openDropdown === index && (
@@ -119,7 +119,7 @@ export default function Navbar({ onMenuOpenChange }) {
                         <a
                           key={link}
                           href="#"
-                          className="text-[20px] font-medium text-black transition hover:text-[#ffa62b]"
+                          className="text-[16px] font-semibold text-black transition hover:text-[#ffa62b]"
                         >
                           {link}
                         </a>
@@ -133,9 +133,9 @@ export default function Navbar({ onMenuOpenChange }) {
         </ul>
 
         <div className="flex items-center gap-6 text-black">
-          <Search size={29} strokeWidth={2.2} className="cursor-pointer" />
-          <User size={29} strokeWidth={2.2} className="cursor-pointer" />
-          <ShoppingBag size={26} strokeWidth={2.2} className="cursor-pointer" />
+          <Search size={22} strokeWidth={2.2} className="cursor-pointer" />
+          <User size={22} strokeWidth={2.2} className="cursor-pointer" />
+          <ShoppingBag size={18} strokeWidth={2.2} className="cursor-pointer" />
         </div>
       </div>
 
@@ -148,7 +148,7 @@ export default function Navbar({ onMenuOpenChange }) {
             <div className="flex min-h-[470px] flex-col">
               <h3 className="mb-12 text-[23px] font-semibold text-black">Collections</h3>
 
-              <div className="flex flex-col gap-2 text-[32px] font-semibold leading-tight">
+              <div className="flex flex-col gap-4 text-[16px] font-semibold leading-tight">
                 <a href="#" className="text-black">
                   Accent Chairs
                 </a>
@@ -165,10 +165,10 @@ export default function Navbar({ onMenuOpenChange }) {
 
               <a
                 href="#"
-                className="mt-auto flex items-center justify-between border-t border-black pt-6 text-[23px] font-semibold text-black"
+                className="mt-auto flex items-center justify-between border-t border-black pt-6 text-[16px] font-semibold text-black"
               >
                 View All Products
-                <ArrowRight size={28} />
+                <ArrowRight size={20} />
               </a>
             </div>
 
@@ -179,10 +179,10 @@ export default function Navbar({ onMenuOpenChange }) {
                 </h3>
                 <a
                   href="#"
-                  className="flex items-center gap-5 text-[23px] font-semibold text-black transition hover:text-[#ffa62b]"
+                  className="flex items-center gap-3 text-[16px] font-semibold text-black transition hover:text-[#ffa62b]"
                 >
                   All Accent Chairs (26)
-                  <ArrowRight size={28} />
+                  <ArrowRight size={20} />
                 </a>
               </div>
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ChevronDown, Search, User, ShoppingBag, ArrowRight, Star } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, Search, ShoppingBag, Star, User, X } from "lucide-react";
 
 const navLinks = [
   {
@@ -58,8 +58,11 @@ const products = [
 
 export default function Navbar({ onMenuOpenChange }) {
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileDropdown, setMobileDropdown] = useState(null);
   const [hasScrolled, setHasScrolled] = useState(false);
-  const isMenuOpen = openDropdown !== null && openDropdown !== 3 && openDropdown !== 4;
+  const isMenuOpen =
+    isMobileMenuOpen || (openDropdown !== null && openDropdown !== 3 && openDropdown !== 4);
 
   useEffect(() => {
     onMenuOpenChange?.(isMenuOpen);
@@ -86,7 +89,7 @@ export default function Navbar({ onMenuOpenChange }) {
       <div className="w-[92%] mx-auto">
 
       
-      <div className="flex items-center justify-between">
+      <div className="relative hidden items-center justify-between lg:flex">
         <h1
           className="text-[32px] font-normal leading-none tracking-normal text-black"
           style={{ fontFamily: "'Arial Rounded MT Bold', 'Poppins', 'Trebuchet MS', sans-serif" }}
@@ -139,6 +142,30 @@ export default function Navbar({ onMenuOpenChange }) {
           <Search size={22} strokeWidth={2.2} className="cursor-pointer" />
           <User size={22} strokeWidth={2.2} className="cursor-pointer" />
           <ShoppingBag size={18} strokeWidth={2.2} className="cursor-pointer" />
+        </div>
+      </div>
+
+      <div className="relative flex min-h-8 items-center justify-between lg:hidden">
+        <button
+          type="button"
+          className="flex h-10 w-10 items-center justify-start"
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
+          onClick={() => setIsMobileMenuOpen((current) => !current)}
+        >
+          {isMobileMenuOpen ? <X size={25} strokeWidth={2.3} /> : <Menu size={26} strokeWidth={2.3} />}
+        </button>
+
+        <h1
+          className="absolute left-1/2 -translate-x-1/2 text-[28px] font-normal leading-none tracking-normal text-black"
+          style={{ fontFamily: "'Arial Rounded MT Bold', 'Poppins', 'Trebuchet MS', sans-serif" }}
+        >
+          miniture
+        </h1>
+
+        <div className="flex items-center gap-5 text-black">
+          <Search size={28} strokeWidth={2.1} className="cursor-pointer" />
+          <ShoppingBag size={23} strokeWidth={2.1} className="cursor-pointer" />
         </div>
       </div>
 
@@ -228,6 +255,77 @@ export default function Navbar({ onMenuOpenChange }) {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {isMobileMenuOpen && (
+        <div className="absolute left-0 top-full w-full border-t border-[#eeeeee] bg-white px-6 py-6 shadow-[0_18px_35px_rgba(0,0,0,0.08)] lg:hidden">
+          <div className="flex flex-col gap-1">
+            {navLinks.map((item, index) => {
+              const hasDropdown = Boolean(item.dropdown?.length || item.megaMenu);
+              const isExpanded = mobileDropdown === index;
+
+              return (
+                <div key={item.title} className="border-b border-[#eeeeee] last:border-b-0">
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-between py-4 text-left text-[17px] font-semibold text-black"
+                    onClick={() => {
+                      if (!hasDropdown) {
+                        setIsMobileMenuOpen(false);
+                        return;
+                      }
+
+                      setMobileDropdown(isExpanded ? null : index);
+                    }}
+                  >
+                    {item.title}
+                    {hasDropdown && (
+                      <ChevronDown
+                        size={18}
+                        strokeWidth={2.4}
+                        className={`transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                      />
+                    )}
+                  </button>
+
+                  {hasDropdown && isExpanded && (
+                    <div className="pb-4">
+                      {item.dropdown?.length ? (
+                        <div className="flex flex-col gap-3">
+                          {item.dropdown.map((link) => (
+                            <a
+                              key={link}
+                              href="#"
+                              className="text-[15px] font-medium text-[#686868] transition hover:text-[#ffa62b]"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {link}
+                            </a>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="grid gap-3 text-[15px] font-medium text-[#686868]">
+                          {["Accent Chairs", "Dining Chair", "Dining Room", "Kid's Furniture"].map(
+                            (link) => (
+                              <a
+                                key={link}
+                                href="#"
+                                className="transition hover:text-[#ffa62b]"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                {link}
+                              </a>
+                            ),
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

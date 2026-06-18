@@ -152,7 +152,15 @@ export default function Navbar({ onMenuOpenChange }) {
 
         <div className="flex items-center gap-6 text-black">
           <Search size={22} strokeWidth={2.2} className="cursor-pointer" />
-          <User size={22} strokeWidth={2.2} className="cursor-pointer" />
+          {/* <Link
+            to="/admin"
+            className="text-[15px] font-semibold transition hover:text-[#ffa62b]"
+          >
+            Admin
+          </Link> */}
+          <Link to="/login" aria-label="Login" className="transition hover:text-[#ffa62b]">
+            <User size={22} strokeWidth={2.2} />
+          </Link>
           <ShoppingBag size={18} strokeWidth={2.2} className="cursor-pointer" />
         </div>
       </div>
@@ -341,6 +349,29 @@ export default function Navbar({ onMenuOpenChange }) {
                 </div>
               );
             })}
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <Link
+                to="/login"
+                className="flex h-12 items-center justify-center rounded-full border border-black text-[15px] font-bold text-black transition hover:border-[#ffa62b] hover:text-[#ffa62b]"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="flex h-12 items-center justify-center rounded-full bg-[#ffa62b] text-[15px] font-bold text-white transition hover:bg-black"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Register
+              </Link>
+            </div>
+            <Link
+              to="/admin"
+              className="mt-3 flex h-12 items-center justify-center rounded-full bg-black text-[15px] font-bold text-white transition hover:bg-[#ffa62b]"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Admin dashboard
+            </Link>
           </div>
         </div>
       )}

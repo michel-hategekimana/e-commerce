@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { data, useNavigate } from "react-router-dom";
+import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
 import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail, User } from "lucide-react";
 
@@ -6,6 +8,7 @@ const inputClasses =
   "h-14 w-full rounded-lg bg-[#f7f7f7] pl-12 pr-4 text-[15px] font-medium text-black outline-none transition focus:bg-[#f1f1f1] focus:ring-2 focus:ring-[#ffa62b]/35 placeholder:text-[#8c8c8c]";
 
 export default function AuthForm({ mode = "login" }) {
+  const navigate = useNavigate();
   const isRegister = mode === "register";
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -23,9 +26,48 @@ export default function AuthForm({ mode = "login" }) {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert(isRegister ? "Account created successfully." : "Welcome back.");
+    try {
+      if (isRegister) {
+        const res = await axios.post(
+          "http://localhost:5000/api/auth/register",
+          {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password
+          }
+        )
+
+        alert(res.data.message || "Account created successfully");
+        navigate("/login")
+      } else {
+        const res = await axios.post(
+          "http://localhost:5000/api/auth/login",
+          {
+            email: formData.email,
+            password: formData.password
+          }
+          
+        )
+        
+        localStorage.setItem("token", res.data.user.token)
+        localStorage.setItem("role", res.data.user.role)
+
+        if (res.data.user.role ==="admin") {
+          navigate("/admin")
+
+        } else {
+          navigate("/")
+        }
+        
+      }
+    } catch (error) {
+      alert(
+        error.response?.data?.message ||
+        "Something went wrong"
+      );
+    }
   };
 
   return (

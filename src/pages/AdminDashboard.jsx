@@ -18,6 +18,7 @@ import {
   Truck,
   Users,
   WalletCards,
+  LogOut,
 } from "lucide-react";
 
 const sidebarItems = [
@@ -105,7 +106,7 @@ export default function AdminDashboard() {
   return (
     <main className="min-h-screen bg-[#f6f6f4] text-[#090b12]">
       <div className="grid lg:grid-cols-[280px_1fr]">
-        <aside className="hidden min-h-screen border-r border-[#e5e1da] bg-white px-5 py-6 lg:block">
+        <aside className="hidden min-h-screen border-r border-[#e5e1da] bg-white px-5 py-6 lg:block lg:sticky lg:top-0 lg:self-start">
           <a
             href="/"
             className="flex items-center gap-3 text-[28px] font-semibold leading-none text-black"
@@ -141,19 +142,15 @@ export default function AdminDashboard() {
             })}
           </nav>
 
-          <div className="mt-10 rounded-lg bg-[#151515] p-5 text-white">
-            <p className="text-[13px] font-bold uppercase tracking-[0.14em] text-[#ffa62b]">
-              Stock alert
-            </p>
-            <h2 className="mt-3 text-[22px] font-semibold leading-tight">
-              18 best sellers need restock this week.
-            </h2>
-            <button
-              type="button"
-              className="mt-5 h-11 rounded-full bg-[#ffa62b] px-5 text-[14px] font-bold text-white transition hover:bg-white hover:text-black"
+          <div className="mt-8 flex items-center justify-between rounded-full border border-[#ece8e1] bg-[#faf9f6] px-4 py-3 text-sm font-semibold text-[#4f4f4f]">
+            <span>Signed in as Admin</span>
+            <a
+              href="/login"
+              className="inline-flex items-center gap-2 rounded-full bg-[#151515] px-4 py-2 text-white transition hover:bg-[#333]"
             >
-              Review items
-            </button>
+              <LogOut size={16} />
+              Logout
+            </a>
           </div>
         </aside>
 
@@ -226,14 +223,14 @@ export default function AdminDashboard() {
             </div>
 
             <div className="mt-8 grid gap-5 xl:grid-cols-[1fr_390px]">
-              <div className="grid gap-5 md:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-3">
                 {metrics.map((metric) => {
                   const Icon = metric.icon;
                   const TrendIcon = metric.trend === "up" ? ArrowUpRight : ArrowDownRight;
 
                   return (
-                    <article key={metric.label} className="rounded-lg border border-[#e5e1da] bg-white p-6">
-                      <div className="flex items-start justify-between">
+                    <article key={metric.label} className="rounded-lg border border-[#e5e1da] bg-white p-4">
+                      <div className="flex items-start justify-between gap-3">
                         <span className="grid h-12 w-12 place-items-center rounded-lg bg-[#f6f6f4] text-black">
                           <Icon size={22} />
                         </span>
@@ -248,8 +245,8 @@ export default function AdminDashboard() {
                           {metric.change}
                         </span>
                       </div>
-                      <p className="mt-6 text-[15px] font-semibold text-[#666]">{metric.label}</p>
-                      <h2 className="mt-2 text-[34px] font-bold leading-none text-black">{metric.value}</h2>
+                      <p className="mt-4 text-[14px] font-semibold text-[#666]">{metric.label}</p>
+                      <h2 className="mt-2 text-[28px] font-bold leading-none text-black">{metric.value}</h2>
                     </article>
                   );
                 })}
@@ -266,8 +263,8 @@ export default function AdminDashboard() {
                   </button>
                 </div>
 
-                <div className="mx-auto mt-8 grid h-44 w-44 place-items-center rounded-full bg-[conic-gradient(#ffa62b_0_78%,#f0ece5_78%_100%)]">
-                  <div className="grid h-32 w-32 place-items-center rounded-full bg-white text-center">
+                <div className="mx-auto mt-8 grid h-36 w-36 place-items-center rounded-full bg-[conic-gradient(#ffa62b_0_78%,#f0ece5_78%_100%)]">
+                  <div className="grid h-28 w-28 place-items-center rounded-full bg-white text-center">
                     <div>
                       <p className="text-[38px] font-bold leading-none text-black">78%</p>
                       <p className="mt-2 text-[13px] font-bold text-[#0b9f57]">+9.8%</p>
@@ -282,11 +279,11 @@ export default function AdminDashboard() {
             </div>
 
             <div className="mt-5 grid gap-5 xl:grid-cols-[1.35fr_0.65fr]">
-              <article className="rounded-lg border border-[#e5e1da] bg-white p-6">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <article className="rounded-lg border border-[#e5e1da] bg-white p-5">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <h2 className="text-[20px] font-bold text-black">Monthly furniture sales</h2>
-                    <p className="mt-1 text-[14px] font-semibold text-[#666]">Orders by month</p>
+                    <h2 className="text-[18px] font-bold text-black">Monthly furniture sales</h2>
+                    <p className="mt-1 text-[13px] font-semibold text-[#666]">Orders by month</p>
                   </div>
                   <div className="flex rounded-lg bg-[#f1efeb] p-1 text-[13px] font-bold">
                     <button type="button" className="rounded-md bg-white px-4 py-2 text-black shadow-sm">
@@ -298,10 +295,10 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div className="mt-8 flex h-[260px] items-end gap-3 border-b border-[#ece8e1] pb-6 sm:gap-5">
+                <div className="mt-6 flex h-[190px] items-end gap-2 border-b border-[#ece8e1] pb-5 sm:gap-4">
                   {salesBars.map((height, index) => (
-                    <div key={index} className="flex flex-1 flex-col items-center gap-3">
-                      <div className="flex h-[210px] w-full items-end">
+                    <div key={index} className="flex flex-1 flex-col items-center gap-2">
+                      <div className="flex h-[150px] w-full items-end">
                         <div
                           className="w-full rounded-t-md bg-[#ffa62b] transition hover:bg-[#151515]"
                           style={{ height: `${height}%` }}
@@ -315,15 +312,15 @@ export default function AdminDashboard() {
                 </div>
               </article>
 
-              <article className="rounded-lg border border-[#e5e1da] bg-white p-6">
-                <h2 className="text-[20px] font-bold text-black">Top collections</h2>
-                <div className="mt-6 flex flex-col gap-4">
+              <article className="rounded-lg border border-[#e5e1da] bg-white p-5">
+                <h2 className="text-[18px] font-bold text-black">Top collections</h2>
+                <div className="mt-5 flex flex-col gap-3">
                   {collectionCards.map((collection) => (
-                    <a key={collection.name} href="#" className="group flex items-center gap-4">
+                    <a key={collection.name} href="#" className="group flex items-center gap-3">
                       <img
                         src={collection.image}
                         alt={collection.name}
-                        className="h-20 w-24 rounded-lg object-cover"
+                        className="h-16 w-20 rounded-lg object-cover"
                       />
                       <div className="min-w-0">
                         <h3 className="truncate text-[16px] font-bold text-black group-hover:text-[#cc7611]">

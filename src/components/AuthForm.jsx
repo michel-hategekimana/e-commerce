@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { data, useNavigate } from "react-router-dom";
-import axios, { Axios } from "axios";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail, User } from "lucide-react";
 
 const inputClasses =
   "h-14 w-full rounded-lg bg-[#f7f7f7] pl-12 pr-4 text-[15px] font-medium text-black outline-none transition focus:bg-[#f1f1f1] focus:ring-2 focus:ring-[#ffa62b]/35 placeholder:text-[#8c8c8c]";
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function AuthForm({ mode = "login" }) {
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ export default function AuthForm({ mode = "login" }) {
     try {
       if (isRegister) {
         const res = await axios.post(
-          "http://localhost:5000/api/auth/register",
+          `${API_URL}/api/auth/register`,
           {
             name: formData.name,
             email: formData.email,
@@ -43,7 +45,7 @@ export default function AuthForm({ mode = "login" }) {
         navigate("/login")
       } else {
         const res = await axios.post(
-          "http://localhost:5000/api/auth/login",
+          `${API_URL}/api/auth/login`,
           {
             email: formData.email,
             password: formData.password
@@ -53,6 +55,7 @@ export default function AuthForm({ mode = "login" }) {
         
         localStorage.setItem("token", res.data.user.token)
         localStorage.setItem("role", res.data.user.role)
+        localStorage.setItem("user", JSON.stringify(res.data.user))
 
         if (res.data.user.role ==="admin") {
           navigate("/admin")
